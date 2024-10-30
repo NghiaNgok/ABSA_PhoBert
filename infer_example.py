@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import re
 
 # Đường dẫn tới mô hình và từ điển khía cạnh
-MODEL_PATH = "D:/ABSAPhoBert/train_model"
+MODEL_PATH = "state_dict/phobert-base_val_acc_0.8313.pth"
 ASPECT_DICT_PATH = "aspect_dict.txt"
 
 # Load từ điển khía cạnh
@@ -14,8 +14,9 @@ def load_aspect_dict(filepath):
     return sorted(set(aspect.lower() for aspect in aspect_keywords), key=len, reverse=True)
 
 # Load model và tokenizer
-tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
+model = AutoModelForSequenceClassification.from_pretrained("vinai/phobert-base", num_labels=3)
+model.load_state_dict(torch.load(MODEL_PATH))  # Tải trọng số từ file
 model.eval()
 
 # Hàm nhận diện và nhóm khía cạnh với phần mô tả liên quan (chỉ lấy khía cạnh đầu tiên trong mỗi phần)

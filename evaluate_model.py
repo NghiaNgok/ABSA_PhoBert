@@ -25,3 +25,5 @@ def evaluate(model, test_loader):
     
     print(f"Accuracy: {accuracy * 100:.2f}%")
     print(report)
+    
+    return accuracy  # Trả về độ chính xác để sử dụng trong huấn luyện
