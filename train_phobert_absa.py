@@ -81,3 +81,10 @@ def train(model, train_loader, test_loader, optimizer, criterion, epochs=5):
 # Khởi tạo DataLoader và huấn luyện
 train_loader, test_loader = get_data_loaders()
 train(model, train_loader, test_loader, optimizer, criterion, epochs=5)
+
+# Save the model after training
+model_save_path = r'train_model'
+os.makedirs(model_save_path, exist_ok=True)  # Ensure the directory exists
+model.save_pretrained(model_save_path)
+print(f"Mô hình đã được lưu vào {model_save_path}")
+
